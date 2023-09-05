@@ -1,11 +1,9 @@
-import 'package:delivery/src/pages/login/login_cotroller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LoginPage extends StatelessWidget {
+class RegisterPage extends StatelessWidget {
   // stless
-  // const LoginPage({Key? key}) : super(key: key);
-  LoginController control = Get.put(LoginController());
+  const RegisterPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,16 +11,17 @@ class LoginPage extends StatelessWidget {
         bottomNavigationBar: Container(
           alignment: Alignment.center,
           height: 50,
-          child: _textDontHaveAccount(),
         ),
         body: Stack(
           children: [
             _backgroundCover(context),
             _boxForm(context),
-            Column(children: [
+            _imageUser(),
+            _buttonBack(),
+            /*Column(children: [
               _imageCover(),
               _textAppName(),
-            ]),
+            ]),*/
             //
           ],
         ));
@@ -31,8 +30,22 @@ class LoginPage extends StatelessWidget {
   Widget _backgroundCover(BuildContext context) {
     return Container(
         width: double.infinity,
-        height: MediaQuery.of(context).size.height * 0.4,
+        height: MediaQuery.of(context).size.height * 0.35,
         color: Colors.amber);
+  }
+
+  Widget _buttonBack() {
+    return SafeArea(
+        child: Container(
+            margin: EdgeInsets.only(left: 30),
+            child: IconButton(
+              onPressed: () => {Get.back()},
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+                size: 35,
+              ),
+            )));
   }
 
   Widget _textAppName() {
@@ -41,7 +54,7 @@ class LoginPage extends StatelessWidget {
             fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black));
   }
 
-  Widget _buttonLogin() {
+  Widget _buttonRegister() {
     return Container(
         width: double.infinity,
         margin: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
@@ -52,7 +65,7 @@ class LoginPage extends StatelessWidget {
               borderRadius: BorderRadius.zero, // Adjust the radius as needed
             )),
             child: Text(
-              'LOGIN',
+              'REGISTRARSE',
               style: TextStyle(color: Colors.black),
             )));
   }
@@ -64,6 +77,36 @@ class LoginPage extends StatelessWidget {
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
               hintText: 'Correo electrónico', prefixIcon: Icon(Icons.email)),
+        ));
+  }
+
+  Widget _textFieldName() {
+    return Container(
+        margin: EdgeInsets.symmetric(horizontal: 40),
+        child: TextField(
+          keyboardType: TextInputType.text,
+          decoration: InputDecoration(
+              hintText: 'Nombre', prefixIcon: Icon(Icons.person)),
+        ));
+  }
+
+  Widget _textFieldLastName() {
+    return Container(
+        margin: EdgeInsets.symmetric(horizontal: 40),
+        child: TextField(
+          keyboardType: TextInputType.text,
+          decoration: InputDecoration(
+              hintText: 'Apellido', prefixIcon: Icon(Icons.person_outline)),
+        ));
+  }
+
+  Widget _textFieldPhone() {
+    return Container(
+        margin: EdgeInsets.symmetric(horizontal: 40),
+        child: TextField(
+          keyboardType: TextInputType.phone,
+          decoration: InputDecoration(
+              hintText: 'Teléfono', prefixIcon: Icon(Icons.phone)),
         ));
   }
 
@@ -81,11 +124,25 @@ class LoginPage extends StatelessWidget {
         ));
   }
 
+  Widget _textFieldConfirmPassword() {
+    return Container(
+        margin: EdgeInsets.symmetric(horizontal: 40),
+        child: TextField(
+          keyboardType: TextInputType.text,
+          obscureText: true,
+          decoration: InputDecoration(
+              hintText: 'Confirmar Contraseña',
+              prefixIcon: Icon(
+                Icons.lock_outlined,
+              )),
+        ));
+  }
+
   Widget _boxForm(BuildContext context) {
     return Container(
-        height: MediaQuery.of(context).size.height * 0.38,
+        height: MediaQuery.of(context).size.height * 0.55,
         margin: EdgeInsets.only(
-            top: MediaQuery.of(context).size.height * 0.33,
+            top: MediaQuery.of(context).size.height * 0.23,
             left: 50,
             right: 50),
         decoration: BoxDecoration(color: Colors.white, boxShadow: <BoxShadow>[
@@ -101,31 +158,31 @@ class LoginPage extends StatelessWidget {
               margin: EdgeInsets.only(top: 40, bottom: 40),
             ),
             _textFieldEmail(),
+            _textFieldName(),
+            _textFieldLastName(),
+            _textFieldPhone(),
             _textFieldPassword(),
-            _buttonLogin()
+            _textFieldConfirmPassword(),
+            _buttonRegister()
           ],
         )));
   }
 
-  Widget _textDontHaveAccount() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          'No tienes cuenta?',
-          style: TextStyle(color: Colors.black, fontSize: 17),
-        ),
-        SizedBox(width: 7),
-        GestureDetector(
-          onTap: () => {control.goToRegisterPage()},
-          child: Text(
-            'Registrate Aquí',
-            style: TextStyle(
-                color: Colors.amber, fontWeight: FontWeight.bold, fontSize: 17),
-          ),
-        ),
-      ],
-    );
+  Widget _imageUser() {
+    return SafeArea(
+        child: Container(
+      margin: EdgeInsets.only(top: 30),
+      alignment: Alignment.topCenter,
+      child: GestureDetector(
+          onTap: () {
+            print('XD');
+          },
+          child: CircleAvatar(
+            backgroundImage: AssetImage('assets/img/user_profile.png'),
+            radius: 60,
+            backgroundColor: Colors.white,
+          )),
+    ));
   }
 
   Widget _imageCover() {

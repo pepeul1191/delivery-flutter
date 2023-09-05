@@ -1,4 +1,5 @@
 import 'package:delivery/src/pages/login/login_page.dart';
+import 'package:delivery/src/pages/register/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -25,12 +26,15 @@ class _MyAppState extends State<MyApp> {
       title: 'Delivery Udemy',
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
-      getPages: [GetPage(name: '/', page: () => LoginPage())],
+      getPages: [
+        GetPage(name: '/', page: () => LoginPage()),
+        GetPage(name: '/register', page: () => RegisterPage())
+      ],
       theme: ThemeData(
           primaryColor: Colors.amber,
           colorScheme: ColorScheme(
               primary: Colors.amber,
-              secondary: Colors.amberAccent,
+              secondary: Colors.red,
               brightness: Brightness.light,
               onBackground: Colors.grey,
               onPrimary: Colors.grey,
