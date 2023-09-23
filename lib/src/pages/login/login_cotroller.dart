@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import '../../providers/user_provider.dart';
 import '../../models/response_api.dart';
 
@@ -23,7 +24,9 @@ class LoginController extends GetxController {
       ResponseApi responseApi = await userProvider.login(email, password);
       print('Response API: ${responseApi.toString()}');
       if (responseApi.success == true) {
+        GetStorage().write('user', responseApi.data);
         Get.snackbar('Login Exitoso', responseApi.message ?? '');
+        Get.toNamed('/home');
       } else {
         Get.snackbar('Login No Exitoso',
             responseApi.message ?? 'Ups, no se sabe si hay error');
